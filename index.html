@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deep Linking Example</title>
+	<script type="text/javascript" src="https://cdnapisec.kaltura.com/p/811441/sp/81144100/embedIframeJs/uiconf_id/42296991/partner_id/811441"></script>
+	<!-- This javascript code handles deeplinking: -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="./kaltura-deeplinking.js"></script>
+	<link rel="stylesheet" type="text/css" href="./sample-style.css">
+</head>
+<body>
+	<content>
+		<header class="article-header">
+			<h1 class="title t-c" itemprop="headline">Entry Title</h1>
+			<p class="dek" itemprop="alternativeHeadline">Entry Description</p>
+			<div class="byline">
+				By <span class="author" itemscope itemtype="http://schema.org/Person"><a itemprop="name">Entry Creator</a></span>
+			</div> 
+			<time class="date" itemprop="createdDate">Entry Created Date</time>
+			<script type="text/javascript">
+				var entryId = '0_w2biqzvr';
+				var entryMetaUrl = 'https://cdnapisec.kaltura.com/api_v3/index.php/service/media/action/get/entryId/'+entryId+'/format/1';
+				$.getJSON( entryMetaUrl, function( kalturaEntry ) {
+					$('h1[itemprop="headline"]').html(kalturaEntry.name);
+					$('p[itemprop="alternativeHeadline"]').html(kalturaEntry.description);
+					$('a[itemprop="name"]').html(kalturaEntry.creatorId);
+					var createdDate = new Date(kalturaEntry.createdAt * 1000);
+	    			var createdDateString = ('0' + createdDate.getDate()).slice(-2) + '/' + ('0' + (createdDate.getMonth() + 1)).slice(-2) + '/' + createdDate.getFullYear() + ' ' + ('0' + createdDate.getHours()).slice(-2) + ':' + ('0' + createdDate.getMinutes()).slice(-2);
+					$('time[itemprop="createdDate"]').html(createdDateString);
+				});
+			</script>
+		</header>
+		<article class="article" itemscope itemtype="http://schema.org/Article">
+			<section class="video-body" itemprop="articleBody">
+				<div class="video-player">
+					<div class="responsive-video">
+						<div id="kaltura-player"></div>
+						<script> 
+							kWidget.embed({ 
+								"targetId": "kaltura-player", 
+								"wid": "_811441", 
+								"uiconf_id": 42296991, 
+								"flashvars": { 
+									'streamerType': 'auto',
+									'mediaProxy.mediaPlayFrom' : getUrlVars()['startTime'],
+									'autoPlay': true
+								}, 
+								"entry_id": entryId
+							}); 
+						</script>
+					</div>
+				</div>
+			</section>
+			<div class="video-content article-body">
+				<h2>What this video is about:</h2>
+				<p><a href="https://www.uopeople.edu/about/leadership/administration/mr-shai-reshef/">Shai Reshef</a>, founder of <a href="http://www.symphonia.io/">University of the People</a> discusses the future of education:</p>
+				<p>A new era for education <a class="video-time" href="#playerId=kaltura-player&startTime=3">(00:03</a>)</p>
+				<p>How University of the People came to be (<a class="video-time" href="#playerId=kaltura-player&startTime=29">00:29</a>)</p>
+				<p>Joining forces with Kaltura, shaping a new culture with video (<a class="video-time" href="#playerId=kaltura-player&startTime=97">01:37</a>)</p>
+				<p>Adding video technology to learning (<a class="video-time" href="#playerId=kaltura-player&startTime=140">02:20</a>)</p>
+				<p>From vision to reality - a better future for the world. (<a class="video-time" href="#playerId=kaltura-player&startTime=178">02:58</a>)</p>
+			</div>
+		</article>
+	</content>
+</body>
+</html>
